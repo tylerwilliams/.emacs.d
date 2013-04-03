@@ -26,5 +26,40 @@
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.py\\'" flymake-pycodecheck-init)))
 
+;; consider .h files to be a part of c++-mode
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
+;; highlight trailing whitespace
+(require 'highlight-chars)
+(add-hook 'c++-mode-hook 'hc-highlight-trailing-whitespace)
+(add-hook 'python-mode-hook 'hc-highlight-trailing-whitespace)
+(add-hook 'java-mode-hook 'hc-highlight-trailing-whitespace)
 
+;; highlight any characters past N
+(require 'column-marker)
+(add-hook 'c++-mode-hook (lambda () (interactive) (column-marker-1 80)))
+(add-hook 'python-mode-hook (lambda () (interactive) (column-marker-1 80)))
+(add-hook 'java-mode-hook (lambda () (interactive) (column-marker-1 100)))
+
+;; draw a vertical column marker line at N characters
+(require 'fill-column-indicator)
+(setq fci-rule-color "red")
+(add-hook 'c++-mode-hook (lambda () (interactive) (fill-column 80)))
+(add-hook 'python-mode-hook (lambda () (interactive) (fill-column 80)))
+(add-hook 'java-mode-hook (lambda () (interactive) (fill-column 100)))
+(add-hook 'c++-mode-hook 'fci-mode)
+(add-hook 'python-mode-hook 'fci-mode)
+(add-hook 'java-mode-hook 'fci-mode)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
