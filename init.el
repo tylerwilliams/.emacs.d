@@ -31,12 +31,14 @@
 
 ;; highlight trailing whitespace
 (require 'highlight-chars)
+(add-hook 'c-mode-hook 'hc-highlight-trailing-whitespace)
 (add-hook 'c++-mode-hook 'hc-highlight-trailing-whitespace)
 (add-hook 'python-mode-hook 'hc-highlight-trailing-whitespace)
 (add-hook 'java-mode-hook 'hc-highlight-trailing-whitespace)
 
 ;; highlight any characters past N
 (require 'column-marker)
+(add-hook 'c-mode-hook (lambda () (interactive) (column-marker-1 80)))
 (add-hook 'c++-mode-hook (lambda () (interactive) (column-marker-1 80)))
 (add-hook 'python-mode-hook (lambda () (interactive) (column-marker-1 80)))
 (add-hook 'java-mode-hook (lambda () (interactive) (column-marker-1 100)))
@@ -44,9 +46,12 @@
 ;; draw a vertical column marker line at N characters
 (require 'fill-column-indicator)
 (setq fci-rule-color "red")
+(add-hook 'c-mode-hook (lambda () (interactive) (fill-column 80)))
 (add-hook 'c++-mode-hook (lambda () (interactive) (fill-column 80)))
 (add-hook 'python-mode-hook (lambda () (interactive) (fill-column 80)))
 (add-hook 'java-mode-hook (lambda () (interactive) (fill-column 100)))
+
+(add-hook 'c-mode-hook 'fci-mode)
 (add-hook 'c++-mode-hook 'fci-mode)
 (add-hook 'python-mode-hook 'fci-mode)
 (add-hook 'java-mode-hook 'fci-mode)
